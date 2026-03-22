@@ -1,0 +1,26 @@
+# ──────────────────────────────────────────────────────
+# render.yaml · Configuración para Render.com
+# Deploy automático desde GitHub con Docker
+# ──────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: flores-amarillas
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    region: oregon       # Puedes cambiar a: frankfurt, singapore, ohio
+    plan: free           # free | starter | standard | pro
+    
+    # Configuración del servidor
+    envVars:
+      - key: PORT
+        value: 80
+
+    # Salud del servicio
+    healthCheckPath: /
+
+    # Pull request previews (opcional, útil para pruebas)
+    pullRequestPreviewsEnabled: false
+
+    # Auto deploy cuando hay push a main
+    autoDeploy: true
